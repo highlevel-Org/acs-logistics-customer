@@ -11,7 +11,7 @@ function Hero() {
 
 			<div className="flex  justify-center">
 				<p className="text-center  text-white  text-base md:text-2xl  my-2 mr-2">
-					ACS LOGISTICS |
+					ACL LOGISTICS |
 				</p>
 				<Typed
 					className="text-center  text-white text-base md:text-2xl  my-2  uppercase"

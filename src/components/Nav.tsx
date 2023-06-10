@@ -9,7 +9,7 @@ export default function Nav() {
 				rel="noopener noreferrer"
 				className="text-xl  md:text-2xl font-bold text-white  cursor-pointer font-sans hover:text-secondary"
 			>
-				ACS Logistics{" "}
+				ACL Logistics{" "}
 			</a>
 
 			<div className="flex  justify-between items-center">
