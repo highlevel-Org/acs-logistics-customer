@@ -56,19 +56,19 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 
 			{/* package data container */}
 			{packageData && (
-				<div className="bg-white  w-[350px] h-auto md:w-[500px]  md:h-auto  rounded-xl  flex flex-col shadow-lg">
+				<div className="bg-white  w-[350px] h-auto md:w-[500px]  md:h-auto  rounded-xl  flex flex-col ">
 					{/* shippment heading details */}
-					<div className="flex ml-3 py-2">
+					<div className="flex pl-3 py-2  bg-gray-100 border border-b-1 border-gray-200 rounded-t-xl  shadow-l">
 						<div className="  h-[40px] w-[40px] md:h-[55px]  md:w-[55px] mr-2 bg-primary  rounded-full flex  items-center justify-center">
 							<BiBox className="text-white  md:text-2xl " />
 						</div>
 						<div className="ml-4">
 							{packageData && (
-								<p className=" text-sm md:text-base  text-primary">
+								<p className=" text-sm md:text-base  text-primary  uppercase">
 									{packageData?.packageName}
 								</p>
 							)}
-							<p className="items-center">
+							<p className="items-center  text-primary">
 								{packageData && (
 									<span className=" text-base md:text-lg font-sans">
 										{packageData?.shippingCost}
@@ -83,26 +83,37 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 								</span>
 							</p>
 							{packageData && (
-								<p className="text-sm md:text-base text-gray-400 ">
-									{packageData?.description}
+								<p className="text-sm md:text-base  text-primary">
+									Serial No:{" "}
+									<span className="text-gray-700 ">
+										{packageData?.serialNumber ?? "Nil"}
+									</span>
+								</p>
+							)}
+							{packageData && (
+								<p className="text-sm md:text-base text-primary">
+									Description:{" "}
+									<span className="text-gray-700 ">
+										{packageData?.description}
+									</span>
 								</p>
 							)}
 						</div>
 					</div>
-					<div className="bg-primary h-[1px] w-[100%]  flex" />
+					{/* <div className="bg-primary h-[1px] w-[100%]  flex" /> */}
 					<div className="flex">
 						{/* stepper */}
-						<div className="mx-4  my-2  items-center ">
-							<div className="bg-primary text-white items-center  p-2  rounded-full">
-								<MdLocationSearching className="text-white   text-2xl" />
+						<div className="mr-2 ml-8  my-2  items-center ">
+							<div className="bg-primary text-white items-center  p-1  rounded-full">
+								<MdLocationSearching className="text-white   text-1xl" />
 							</div>
-							<div className="relative w-[1px] h-[180px] bg-primary ml-5 flex items-center">
+							<div className="relative w-[1px] h-[220px] md:h-[185px] bg-primary ml-3 flex items-center">
 								<div className="absolute right-[2px]  -rotate-90">
 									<ImLocation className="text-primary   text-2xl" />
 								</div>
 							</div>
-							<div className="bg-primary   items-center  p-2  rounded-full">
-								<MdLocationSearching className="text-white   text-2xl" />
+							<div className="bg-primary   items-center  p-1  rounded-full">
+								<MdLocationSearching className="text-white   text-1xl" />
 							</div>
 						</div>
 
@@ -110,7 +121,7 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 						<div className="ml-5  my-2">
 							{/* origin */}
 							<div>
-								<p className="text-l  font-sans  text-gray-400">
+								<p className="text-l  font-sans  text-gray-600">
 									Pick-UP Point{" "}
 									{packageData && (
 										<span className="text-xs  text-primary">
@@ -131,7 +142,7 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 							</div>
 							{/* current location */}
 							<div className="my-3">
-								<p className="text-l  font-sans  text-gray-400">
+								<p className="text-l  font-sans  text-gray-600">
 									Current Location{" "}
 									{packageData && (
 										<span className="text-xs  text-primary">
@@ -156,7 +167,7 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 							</div>
 							{/* destination */}
 							<div className="my-5">
-								<p className="text-l  font-sans  text-gray-400">
+								<p className="text-l  font-sans  text-gray-600">
 									Drop-Off Point{" "}
 									{packageData && (
 										<span className="text-xs  text-primary">
@@ -210,13 +221,17 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 					<div className="bg-primary h-[1px] w-[100%]  flex" />
 					<div className="flex">
 						{/* stepper */}
-						<div className="mx-4  my-2  items-center ">
-							<div className="bg-primary  items-center  p-2  rounded-full">
-								<MdLocationSearching className="text-white   text-2xl" />
+						<div className="mr-2 ml-8  my-2  items-center ">
+							<div className="bg-primary text-white items-center  p-1  rounded-full">
+								<MdLocationSearching className="text-white   text-1xl" />
 							</div>
-							<div className="w-[1px] h-[100px] bg-primary ml-5"></div>
-							<div className="bg-primary   items-center  p-2  rounded-full">
-								<MdLocationSearching className="text-white   text-2xl" />
+							<div className="relative w-[1px] h-[220px] md:h-[185px] bg-primary ml-3 flex items-center">
+								{/* <div className="absolute right-[2px]  -rotate-90">
+									<ImLocation className="text-primary   text-2xl" />
+								</div> */}
+							</div>
+							<div className="bg-primary   items-center  p-1  rounded-full">
+								<MdLocationSearching className="text-white   text-1xl" />
 							</div>
 						</div>
 
