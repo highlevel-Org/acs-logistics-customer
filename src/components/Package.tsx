@@ -107,7 +107,7 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 							<div className="bg-primary text-white items-center  p-1  rounded-full">
 								<MdLocationSearching className="text-white   text-1xl" />
 							</div>
-							<div className="relative w-[1px] h-[220px] md:h-[185px] bg-primary ml-3 flex items-center">
+							<div className="relative w-[1px] h-[190px] bg-primary ml-3 flex items-center">
 								<div className="absolute right-[2px]  -rotate-90">
 									<ImLocation className="text-primary   text-2xl" />
 								</div>
@@ -211,21 +211,21 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 						<div className="w-[55px]  h-[55px] m-2">
 							<Skeleton circle className="h-[45px]  w-[45px]" />
 						</div>
-						<div className="w-[300px] ">
-							<Skeleton count={1} className="h-[15px]  w-[40px]" />
+						<div className="w-[250px] ">
 							<div className="w-[150px]">
 								<Skeleton count={1} className="h-[15px]  " />
 							</div>
+							<Skeleton count={1} className="h-[15px]  w-[20px]" />
 						</div>
 					</div>
-					<div className="bg-primary h-[1px] w-[100%]  flex" />
+					<div className="bg-gray-300 h-[1px] w-[100%]  flex" />
 					<div className="flex">
 						{/* stepper */}
 						<div className="mr-2 ml-8  my-2  items-center ">
 							<div className="bg-primary text-white items-center  p-1  rounded-full">
 								<MdLocationSearching className="text-white   text-1xl" />
 							</div>
-							<div className="relative w-[1px] h-[220px] md:h-[185px] bg-primary ml-3 flex items-center">
+							<div className="relative w-[1px] h-[150px] bg-primary ml-3 flex items-center">
 								{/* <div className="absolute right-[2px]  -rotate-90">
 									<ImLocation className="text-primary   text-2xl" />
 								</div> */}
