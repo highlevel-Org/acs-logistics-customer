@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Lottie from "lottie-react";
 import Truck from "../assets/Truck.json";
 import { BiBox } from "react-icons/bi";
 import { VscLocation } from "react-icons/vsc";
 import { FaTrash } from "react-icons/fa";
+import { ImLocation } from "react-icons/im";
+import { MdLocationSearching } from "react-icons/md";
 import { MdError } from "react-icons/md";
-import { packageType } from "../@types/package";
+import { geoLocationType, packageType } from "../@types/package";
 import { format } from "date-fns";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { getCurrentLocation } from "../services/BaseApi";
 
 type Props = {
 	packageData: packageType | null;
@@ -18,8 +21,31 @@ type Props = {
 };
 
 function Package({ packageData, isLoading, handleReset, error }: Props) {
+	// console.log("Package======\n", JSON.stringify(packageData, null, 2));
+
+	const [currentLocation, setcurrentLocation] =
+		useState<geoLocationType | null>(null);
+
+	// useEffect(() => {
+	// 	if (!packageData) return;
+
+	// 	const getLocation = async () => {
+	// 		const location = await getCurrentLocation(
+	// 			packageData?.currentLocation?.currentCordinates
+	// 		);
+
+	// 		setcurrentLocation(location);
+
+	// 		// console.log("resss:\n", JSON.stringify(res, null, 2));
+	// 	};
+
+	// 	getLocation();
+
+	// 	return () => {};∂
+	// }, [packageData]);
+
 	return (
-		<div className="flex flex-col  items-center  mx-auto my-2   mt-5">
+		<div className="flex flex-col  items-center  mx-auto    mt-5  mb-[100px]">
 			{!isLoading && !packageData && (
 				<Lottie
 					animationData={Truck}
@@ -33,12 +59,12 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 				<div className="bg-white  w-[350px] h-auto md:w-[500px]  md:h-auto  rounded-xl  flex flex-col shadow-lg">
 					{/* shippment heading details */}
 					<div className="flex ml-3 py-2">
-						<div className="  h-[40px] w-[40px] md:h-[55px]  md:w-[55px] mr-2 bg-blue-500  rounded-full flex  items-center justify-center">
-							<BiBox className="text-white text-lg md:text-3xl font-bold" />
+						<div className="  h-[40px] w-[40px] md:h-[55px]  md:w-[55px] mr-2 bg-primary  rounded-full flex  items-center justify-center">
+							<BiBox className="text-white  md:text-2xl " />
 						</div>
-						<div className="">
+						<div className="ml-4">
 							{packageData && (
-								<p className=" text-sm md:text-base pm-2  text-blue-500">
+								<p className=" text-sm md:text-base  text-primary">
 									{packageData?.packageName}
 								</p>
 							)}
@@ -57,22 +83,26 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 								</span>
 							</p>
 							{packageData && (
-								<p className="text-sm md:text-base text-gray-400">
+								<p className="text-sm md:text-base text-gray-400 ">
 									{packageData?.description}
 								</p>
 							)}
 						</div>
 					</div>
-					<div className="bg-blue-500 h-[1px] w-[100%]  flex" />
+					<div className="bg-primary h-[1px] w-[100%]  flex" />
 					<div className="flex">
 						{/* stepper */}
 						<div className="mx-4  my-2  items-center ">
-							<div className="bg-blue-500  items-center  p-2  rounded-full">
-								<VscLocation className="text-gray-200   text-2xl" />
+							<div className="bg-primary text-white items-center  p-2  rounded-full">
+								<MdLocationSearching className="text-white   text-2xl" />
 							</div>
-							<div className="w-[1px] h-[100px] bg-blue-500 ml-5"></div>
-							<div className="bg-blue-500   items-center  p-2  rounded-full">
-								<VscLocation className="text-white   text-2xl" />
+							<div className="relative w-[1px] h-[180px] bg-primary ml-5 flex items-center">
+								<div className="absolute right-[2px]  -rotate-90">
+									<ImLocation className="text-primary   text-2xl" />
+								</div>
+							</div>
+							<div className="bg-primary   items-center  p-2  rounded-full">
+								<MdLocationSearching className="text-white   text-2xl" />
 							</div>
 						</div>
 
@@ -80,13 +110,13 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 						<div className="ml-5  my-2">
 							{/* origin */}
 							<div>
-								<p className="text-l  font-sans  text-gray-300">
+								<p className="text-l  font-sans  text-gray-400">
 									Pick-UP Point{" "}
 									{packageData && (
-										<span className="text-xs  text-blue-500">
+										<span className="text-xs  text-primary">
 											{format(
 												new Date(packageData?.shippedDate ?? ""),
-												"d,LL,yyyy"
+												"d,LLL,yyyy"
 											)}
 										</span>
 									)}
@@ -99,16 +129,41 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 								<p className="text-sm">{packageData?.origin?.senderName}</p>
 								<p className="text-xs  ">{packageData?.origin?.senderEmail}</p>
 							</div>
+							{/* current location */}
+							<div className="my-3">
+								<p className="text-l  font-sans  text-gray-400">
+									Current Location{" "}
+									{packageData && (
+										<span className="text-xs  text-primary">
+											{format(new Date(), "d,LLL,yyyy")}
+										</span>
+									)}
+								</p>
+
+								{packageData?.currentLocation?.currentLocationAddress && (
+									<p className="text-sm">
+										{packageData?.currentLocation?.currentLocationAddress}
+									</p>
+								)}
+
+								{/* {currentLocation && (
+									<p className="text-sm">{currentLocation?.display_name}</p>
+								)} */}
+								<p className="text-sm">Reason :</p>
+								<p className="text-xs  ">
+									{packageData?.currentLocation?.reason}
+								</p>
+							</div>
 							{/* destination */}
 							<div className="my-5">
 								<p className="text-l  font-sans  text-gray-400">
 									Drop-Off Point{" "}
 									{packageData && (
-										<span className="text-xs  text-blue-500">
+										<span className="text-xs  text-primary">
 											ETA{" "}
 											{format(
 												new Date(packageData?.deliveryDate ?? ""),
-												"d,LL,yyyy"
+												"d,LLL,yyyy"
 											)}
 										</span>
 									)}
@@ -129,7 +184,7 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 					<button
 						onClick={handleReset}
 						type="button"
-						className="bg-blue-500 text-white rounded-md py-1 px-10 my-5 cursor-pointer mx-auto flex items-center"
+						className="bg-primary text-white rounded-md py-1 px-10 my-5 cursor-pointer mx-auto flex items-center"
 					>
 						Clear
 						<FaTrash className="text-light ml-1" />
@@ -152,16 +207,16 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 							</div>
 						</div>
 					</div>
-					<div className="bg-blue-500 h-[1px] w-[100%]  flex" />
+					<div className="bg-primary h-[1px] w-[100%]  flex" />
 					<div className="flex">
 						{/* stepper */}
 						<div className="mx-4  my-2  items-center ">
-							<div className="bg-blue-500  items-center  p-2  rounded-full">
-								<VscLocation className="text-white  text-2xl" />
+							<div className="bg-primary  items-center  p-2  rounded-full">
+								<MdLocationSearching className="text-white   text-2xl" />
 							</div>
-							<div className="w-[1px] h-[100px] bg-blue-500 ml-5"></div>
-							<div className="bg-blue-500   items-center  p-2  rounded-full">
-								<VscLocation className="text-white   text-2xl" />
+							<div className="w-[1px] h-[100px] bg-primary ml-5"></div>
+							<div className="bg-primary   items-center  p-2  rounded-full">
+								<MdLocationSearching className="text-white   text-2xl" />
 							</div>
 						</div>
 
@@ -172,7 +227,7 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 								<p className="text-l  font-sans  text-gray-300">
 									Pick-UP Point{" "}
 									{packageData && (
-										<span className="text-xs  text-blue-500">
+										<span className="text-xs  text-primary">
 											{format(
 												new Date(packageData?.shippedDate ?? ""),
 												"d,LL,yyyy"
@@ -195,7 +250,7 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 								<p className="text-l  font-sans  text-gray-300">
 									Drop-Off Point{" "}
 									{packageData && (
-										<span className="text-xs  text-blue-500">
+										<span className="text-xs  text-primary">
 											ETA{" "}
 											{format(
 												new Date(packageData?.deliveryDate ?? ""),
@@ -222,15 +277,15 @@ function Package({ packageData, isLoading, handleReset, error }: Props) {
 			{/* error section */}
 			{error && (
 				<div className="h-[180px] w-[300px] md:w-[550px]  bg-light  rounded-xl  flex  flex-col items-center justify-center  shadow-lg">
-					<MdError className="text-blue-500 text-4xl  md:text-6xl  mx-auto  " />
+					<MdError className="text-primary text-4xl  md:text-6xl  mx-auto  " />
 
-					<h4 className="text-center  text-blue-500  text-xl md:text-2xl">
+					<h4 className="text-center  text-primary  text-xl md:text-2xl">
 						{"Something went wrong"}
 					</h4>
 
 					<button
 						onClick={handleReset}
-						className="text-white  bg-blue-500 px-5 py-1 rounded-md  my-2  cursor-pointer"
+						className="text-white  bg-primary px-5 py-1 rounded-md  my-2  cursor-pointer"
 						type="button"
 					>
 						Try again

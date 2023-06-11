@@ -1,6 +1,26 @@
-type cordinatesType = {
+export type cordinatesType = {
 	lat: string;
 	long: string;
+};
+
+export type geoLocationType = {
+	place_id: number;
+	licence: string;
+	powered_by: string;
+	osm_type: string;
+	osm_id: number;
+	lat: string;
+	lon: string;
+	display_name: string;
+	address: AddressType;
+	boundingbox: string[];
+};
+
+export type AddressType = {
+	county: string;
+	state: string;
+	country: string;
+	country_code: string;
 };
 
 export type packageType = {
@@ -12,6 +32,7 @@ export type packageType = {
 	};
 	currentLocation: {
 		currentCordinates: cordinatesType;
+		currentLocationAddress: string;
 		reason: string;
 	};
 	destination: {

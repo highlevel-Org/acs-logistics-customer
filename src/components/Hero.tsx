@@ -4,8 +4,8 @@ import Typed from "react-typed";
 
 function Hero() {
 	return (
-		<div className="my-5">
-			<h3 className="text-white text-sm md:text-xl  text-center my-1 md:my-4 mb-2 md:mb-5  font-indie">
+		<div className="my-5  mt-20">
+			<h3 className="text-white text-sm md:text-xl  text-center my-1 md:my-4 mb-2 md:mb-5  font-indieCustom">
 				Fast & Easy Shipping #WhenEverWhereEver
 			</h3>
 
@@ -21,7 +21,7 @@ function Hero() {
 					loop
 				/>
 			</div>
-			<h1 className="text-white  uppercase  text-center  text-xl md:text-4xl">
+			<h1 className="text-white  uppercase font-sans text-center  text-xl md:text-4xl">
 				Quickly Track your package
 			</h1>
 		</div>

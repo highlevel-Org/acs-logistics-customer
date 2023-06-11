@@ -14,7 +14,7 @@ function search({ Id, setId, getShippment, isLoading }: Props) {
 			<input
 				value={Id}
 				onChange={(e) => setId(e.target.value)}
-				className="bg-transparent  text-sm md:text-xl text-blue-500  focus:outline-none flex-1 pr-2 "
+				className="bg-transparent  text-sm md:text-xl text-primary  focus:outline-none flex-1 pr-2 "
 				type="text"
 				name=""
 				placeholder="Enter your tracking id here..."
@@ -24,7 +24,7 @@ function search({ Id, setId, getShippment, isLoading }: Props) {
 			<button
 				disabled={isLoading || Id === ""}
 				onClick={getShippment}
-				className={`h-[25px]  w-[25px] md:h-[45px] flex md:w-[45px] bg-blue-500 items-center justify-center   rounded-full shadow-2xl   place-content-center  ${
+				className={`h-[25px]  w-[25px] md:h-[45px] flex md:w-[45px] bg-primary items-center justify-center   rounded-full shadow-2xl   place-content-center  ${
 					isLoading ? "cursor-progress" : "cursor-pointer"
 				}    ${Id === "" ? "cursor-not-allowed" : "cursor-pointer"}`}
 			>
